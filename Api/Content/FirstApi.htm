@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script src="../Scripts/jquery-1.7.1.min.js" type="text/javascript"></script>
+    <script>
+        $(document).ready(function () {
+            $('#btnGet').click(function () {
+                $.getJSON('http://localhost:58596/api/Books',
+               function (data) {
+                   $.each(data, function (i, field) {
+                       var $table = $('table');
+                       $table.append("<tr><td>" + field.Id + "</td><td>" + field.Name + "</td><td>" + field.Author + "</td><td>" + field.Price + "</td><td>" + field.ISBN + "</td></tr>");
+
+                   });
+               });
+            });
+            $('#btnGetBook').click(function () {
+                var $id = $('#txtId').val();
+                $.getJSON('http://localhost:58596/api/Books' + '/' + $id,
+                function (data) {
+                    var $table = $('table');
+                    $table.empty;
+                    $.each(data, function (i, field) {
+                        var $table = $('table');
+                        $table.append("<tr><td>" + field.Id + "</td><td>" + field.Name + "</td><td>" + field.Author + "</td><td>" + field.Price + "</td><td>" + field.ISBN + "</td></tr>");
+                    });
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <div>
+        <table>
+            <tr>
+                <td>
+                    Id
+                </td>
+                <td>
+                    Name
+                </td>
+                <td>
+                    Author
+                </td>
+                <td>
+                    Price
+                </td>
+                <td>
+                    ISBN
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div>
+        <button id="btnGet">
+            Get All Books</button>
+    </div>
+    <br />
+    <br />
+    <div>
+        <input type="text" id ="txtId" />
+        <br />
+        <button id = "btnGetBook">Get Book by Id</button>
+    </div>
+
+</body>
+</html>
